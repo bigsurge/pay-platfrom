@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap >
+  <typeAlias type="com.isoftstone.pay.model.GatewayInfo" alias="gatewayInfo"/>
+  <resultMap id="gatewayInfoParameter" class="gatewayInfo" >
+    <result column="Gateway_id" property="gatewayId" jdbcType="VARCHAR" />
+    <result column="Pay_method" property="payMethod" jdbcType="VARCHAR"/>
+    <result column="Bus_coop_id" property="busCoopId" jdbcType="VARCHAR"/>
+    <result column="Bus_coop_acc" property="busCoopAcc" jdbcType="VARCHAR"/>
+    <result column="Bus_coop_key" property="busCoopKey" jdbcType="VARCHAR"/>
+    <result column="Created_time" property="createdTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="Updated_time" property="updatedTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<select id="getAllGatewayInfo" resultMap="gatewayInfoParameter">
+   	 	SELECT Gateway_id,Pay_method,Bus_coop_id,Bus_coop_acc,
+   	 	Bus_coop_key,Created_time,Created_by,Updated_time,Updated_by FROM Gateway_Info
+  	</select>
+  
+  	<select id="getGatewayInfoByGatewayId" resultMap="gatewayInfoParameter">
+  		SELECT Gateway_id,Pay_method,Bus_coop_id,Bus_coop_acc,
+   	 	Bus_coop_key,Created_time,Created_by,Updated_time,Updated_by FROM Gateway_Info where Gateway_id=#Gateway_id#
+	</select>
+	
+	<select id="getGatewayInfoByChannelId" resultMap="gatewayInfoParameter">
+  		SELECT Gateway_id,Pay_method,Bus_coop_id,Bus_coop_acc,
+   	 	Bus_coop_key,Created_time,Created_by,Updated_time,Updated_by FROM Gateway_Info,Channel_R_Gateway 
+        where Gateway_Info.Gateway_id = Channel_R_Gateway.Gateway_id and Channel_R_Gateway.Channel_id =#Channel_id#
+	</select>
+  
+    <insert id="insertGatewayInfo" parameterClass="gatewayInfo">
+   	 	INSERT INTO Gateway_Info(Gateway_id,Pay_method,Bus_coop_id,Bus_coop_acc,
+   	 	Bus_coop_key,Created_time,Created_by,Updated_time,Updated_by) 
+   	 	VALUES (#gatewayId#,#payMethod#,#busCoopId#,#busCoopAcc#,#busCoopKey#,#createdTime#,#createdBy#,#updatedTime#,#updatedBy#)
+	</insert>
+	
+	<delete id="deleteGatewayInfo">
+		delete from Gateway_Info where Gateway_id=#Gateway_id# 
+	</delete>
+</sqlMap>

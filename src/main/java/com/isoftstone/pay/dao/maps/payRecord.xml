@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap >
+  <typeAlias type="com.isoftstone.pay.model.PayRecord" alias="payRecord"/>
+  <resultMap id="payRecordParameter" class="payRecord" >
+    <result column="Pay_order_no" property="payOrderNo" jdbcType="VARCHAR" />
+    <result column="Order_no" property="orderNo" jdbcType="VARCHAR"/>
+    <result column="Trade_no" property="tradeNo" jdbcType="VARCHAR"/>
+    <result column="Pay_time" property="payTime" jdbcType="DATETIME" javaType="java.sql.Timestamp"/>
+    <result column="Pay_status" property="payStatus" jdbcType="VARCHAR"/>
+    <result column="Pay_method" property="payMethod" jdbcType="VARCHAR"/>
+    <result column="Buyer_alipay_acc" property="buyerAlipayAcc" jdbcType="VARCHAR"/>
+    <result column="Seller_alipay_acc" property="sellerAlipayAcc" jdbcType="VARCHAR" />
+    <result column="Pay_card_no" property="payCardNo" jdbcType="VARCHAR"/>
+    <result column="Created_time" property="createdTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="Updated_time" property="updatedTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<select id="getAllPayRecord" resultMap="payRecordParameter">
+   	 	SELECT Pay_order_no,Order_no,Trade_no,Pay_time,Pay_status,
+   	 	Pay_method,Buyer_alipay_acc,Seller_alipay_acc,Pay_card_no,Created_time,Created_by,Updated_time,Updated_by FROM Pay_record
+  	</select>
+  
+  	<select id="getPayRecordByOrderNo" resultMap="payRecordParameter">
+  		SELECT Pay_order_no,Order_no,Trade_no,Pay_time,Pay_status,
+   	 	Pay_method,Buyer_alipay_acc,Seller_alipay_acc,Pay_card_no,Created_time,Created_by,Updated_time,Updated_by FROM Pay_record where Order_no=#Order_no#
+	</select>
+  
+    <insert id="insertPayRecord" parameterClass="payRecord">
+   	 	INSERT INTO Pay_record(Pay_order_no,Order_no,Trade_no,Pay_time,Pay_status,
+   	 	Pay_method,Buyer_alipay_acc,Seller_alipay_acc,Pay_card_no,Created_time,Created_by,Updated_time,Updated_by) 
+   	 	VALUES (#payOrderNo#,#orderNo#,#tradeNo#,#payTime#,#payStatus#,#payMethod#,#buyerAlipayAcc#,#sellerAlipayAcc#,#payCardNo#,#createdTime#,#createdBy#,#updatedTime#,#updatedBy#)
+	</insert>
+	
+	<delete id="deletePayRecord">
+		delete from Pay_record where Pay_order_no=#Pay_order_no# 
+	</delete>
+</sqlMap>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap >
+  <typeAlias type="com.isoftstone.pay.model.RefundRecord" alias="refundRecord"/>
+  <resultMap id="refundRecordParameter" class="refundRecord" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="Channel_id" property="channelId" jdbcType="VARCHAR"/>
+    <result column="Refund_order_no" property="refundOrderNo" jdbcType="VARCHAR"/>
+    <result column="Refund_time" property="refundTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Refund_status" property="refundStatus" jdbcType="VARCHAR"/>
+    <result column="Refund_method" property="refundMethod" jdbcType="VARCHAR"/>
+    <result column="Buyer_alipay_acc" property="buyerAlipayAcc" jdbcType="VARCHAR"/>
+    <result column="Seller_alipay_acc" property="sellerAlipayAcc" jdbcType="VARCHAR" />
+    <result column="Refund_account" property="refundAccount" jdbcType="VARCHAR"/>
+    <result column="Refund_batch_no" property="refundBatchNo" jdbcType="VARCHAR"/>
+    <result column="Refund_batch_num" property="refundBatchNum" jdbcType="VARCHAR"/>
+    <result column="Refund_res_detail" property="refundResDetail" jdbcType="VARCHAR"/>
+    <result column="Created_time" property="createdTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="Updated_time" property="updatedTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<select id="getAllRefundRecord" resultMap="refundRecordParameter">
+   	 	SELECT id,Channel_id,Refund_order_no,Refund_time,Refund_status,Refund_method,Buyer_alipay_acc,Seller_alipay_acc,
+  Refund_account,Refund_batch_no,Refund_batch_num,Refund_res_detail,Created_time,Created_by,Updated_time,Updated_by FROM Refund_record
+  	</select>
+  
+  	<select id="getRefundRecordByChannelId" resultMap="refundRecordParameter">
+  		SELECT id,Channel_id,Refund_order_no,Refund_time,Refund_status,Refund_method,Buyer_alipay_acc,Seller_alipay_acc,
+  Refund_account,Refund_batch_no,Refund_batch_num,Refund_res_detail,Created_time,Created_by,Updated_time,Updated_by FROM Refund_record where Channel_id=#Channel_id#
+	</select>
+  
+    <insert id="insertRefundRecord" parameterClass="refundRecord">
+   	 	INSERT INTO Refund_record(id,Channel_id,Refund_order_no,Refund_time,Refund_status,Refund_method,Buyer_alipay_acc,Seller_alipay_acc,
+  Refund_account,Refund_batch_no,Refund_batch_num,Refund_res_detail,Created_time,Created_by,Updated_time,Updated_by) 
+   	 	VALUES (#id#,#channelId#,#refundOrderNo#,#refundTime#,#refundStatus#,#refundMethod#,#buyerAlipayAcc#,#sellerAlipayAcc#,#refundAccount#,#refundBatchNo#,#refundBatchNum#,#refundResDetail#,
+   	 	#createdTime#,#createdBy#,#updatedTime#,#updatedBy#)
+	</insert>
+	
+	<delete id="deleteRefundRecord">
+		delete from Refund_record where id=#id# 
+	</delete>
+</sqlMap>

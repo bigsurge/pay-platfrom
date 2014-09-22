@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+  <typeAlias type="com.isoftstone.pay.model.SiteChannel" alias="siteChannel"/>
+  <resultMap id="siteChannelParameter" class="siteChannel" >
+    <result column="Channel_id" property="channelId" jdbcType="VARCHAR" />
+    <result column="Channel_desc" property="channelDesc" jdbcType="VARCHAR"/>
+    <result column="Channel_key" property="channelKey" jdbcType="VARCHAR"/>
+    <result column="Created_time" property="createdTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="Updated_time" property="updatedTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+    
+  	<select id="getAllSiteChannel" resultMap="siteChannelParameter">
+   	 	SELECT Channel_id,Channel_desc,Channel_key,Created_time,Created_by,Updated_time,Updated_by FROM Site_channel
+  	</select>
+  
+  	<select id="getSiteChannelByChannelId" resultMap="siteChannelParameter">
+  		SELECT Channel_id,Channel_desc,Channel_key,Created_time,Created_by,Updated_time,Updated_by FROM Site_channel where Channel_id=#Channel_id#
+	</select>
+  
+    <insert id="insertSiteChannel" parameterClass="siteChannel">
+   	 	INSERT INTO Site_channel(Channel_id,Channel_desc,Channel_key,Created_time,Created_by,Updated_time,Updated_by) 
+   	 	VALUES (#channelId#,#channelDesc#,#channelKey#,#createdTime#,#createdBy#,#updatedTime#,#updatedBy#)
+	</insert>
+	
+	<delete id="deleteSiteChannel">
+		delete from Site_channel where channelId=#channelId# 
+	</delete>
+</sqlMap>

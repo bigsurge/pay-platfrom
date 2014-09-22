@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap >
+  <typeAlias type="com.isoftstone.pay.model.OrderForm" alias="orderForm"/>
+  <resultMap id="orderFormParameter" class="orderForm" >
+    <result column="Order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="Order_no" property="orderNo" jdbcType="VARCHAR"/>
+    <result column="Channel_id" property="channelId" jdbcType="VARCHAR"/>
+    <result column="Order_amount" property="orderAmount" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+    <result column="Order_name" property="orderName" jdbcType="VARCHAR"/>
+    <result column="Order_status" property="orderStatus" jdbcType="VARCHAR"/>
+    <result column="Pay_method" property="payMethod" jdbcType="VARCHAR"/>
+    <result column="Order_time" property="orderTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Created_time" property="createdTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="Updated_time" property="updatedTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<select id="getAllOrderForm" resultMap="orderFormParameter">
+   	 	SELECT Order_id,Order_no,Channel_id,Order_amount,
+   	 	Order_name,Order_status,Pay_method,Order_time,Created_time,Created_by,Updated_time,Updated_by FROM Order_form
+  	</select>
+  
+  	<select id="getOrderFormByOrderNo" resultMap="orderFormParameter">
+  		SELECT Order_id,Order_no,Channel_id,Order_amount,
+   	 	Order_name,Order_status,Pay_method,Order_time,Created_time,Created_by,Updated_time,Updated_by FROM Order_form where Order_no=#Order_no#
+	</select>
+  
+    <insert id="insertOrderForm" parameterClass="orderForm">
+   	 	INSERT INTO Order_form(Order_id,Order_no,Channel_id,Order_amount,
+   	 	Order_name,Order_status,Pay_method,Order_time,Created_time,Created_by,Updated_time,Updated_by) 
+   	 	VALUES (#orderId#,#orderNo#,#channelId#,#orderAmount#,#orderName#,#orderStatus#,#payMethod#,#orderTime#,#createdTime#,#createdBy#,#updatedTime#,#updatedBy#)
+	</insert>
+	
+	<delete id="deleteOrderForm">
+		delete from Order_form where Order_id=#Order_id# 
+	</delete>
+</sqlMap>

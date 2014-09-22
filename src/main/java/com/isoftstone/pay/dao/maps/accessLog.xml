@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap >
+  <typeAlias type="com.isoftstone.pay.model.AccessLog" alias="accessLog"/>
+  <resultMap id="accessLogParameter" class="accessLog" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="Request_url" property="requestUrl" jdbcType="TEXT" javaType="java.lang.String"/>
+    <result column="Request_time" property="requestTime" jdbcType="DATETIME" javaType="java.sql.Timestamp"/>
+    <result column="Request_channel" property="requestChannel" jdbcType="VARCHAR" />
+    <result column="Created_time" property="createdTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="Request_error" property="requestError" jdbcType="TEXT" javaType="java.lang.String" />
+  </resultMap>
+  
+  	<select id="getAllAccessLog" resultMap="accessLogParameter">
+   	 	SELECT id,Request_url,Request_time,Request_channel,Created_time,Order_no,Request_error FROM Access_log
+  	</select>
+  
+  	<select id="getAccessLogByOrderNo" resultMap="accessLogParameter">
+  		SELECT id,Request_url,Request_time,Request_channel,Created_time,Order_no,Request_error FROM Access_log where Order_no=#Order_no#
+	</select>
+  
+    <insert id="insertAccessLog" parameterClass="accessLog">
+   	 	INSERT INTO Access_log(id,Request_url,Request_time,Request_channel,Created_time,Order_no,Request_error) 
+   	 	VALUES (#id#,#requestUrl:VARCHAR#,#requestTime#,#requestChannel#,#createdTime#,#orderNo#,#requestError:VARCHAR#)
+	</insert>
+	
+	<delete id="deleteAccessLog">
+		delete from Access_log where id=#id# 
+	</delete>
+</sqlMap>

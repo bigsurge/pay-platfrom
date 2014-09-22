@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Test">
+
+    <typeAlias alias="Test" type="com.isoftstone.pay.model.Test" />
+
+	<resultMap class="Test" id="result">
+		<result property="id" column="ID" jdbcType="VARCHAR"/>
+		<result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+		<result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="list" resultMap="result" parameterClass="Test">
+		SELECT ID,USERNAME,PASSWORD 
+		FROM TEST
+	</select>
+	 
+	<select id="get" resultMap="result" parameterClass="java.lang.String">
+		SELECT ID,USERNAME,PASSWORD  
+		FROM Test WHERE ID=#value#
+	</select>
+	
+	<insert id="insert" parameterClass="Test">
+		INSERT INTO Test
+		(ID,USERNAME,PASSWORD)
+		VALUES
+		(
+		#id:VARCHAR#,
+		#username:VARCHAR#,
+		#password:VARCHAR#
+        )
+	</insert>
+	
+	<update id="update" parameterClass="Test">
+		UPDATE Test
+		SET
+		USERNAME = #username:VARCHAR#,
+		PASSWORD = #password:VARCHAR#
+		WHERE ID=#id:VARCHAR#
+  </update>
+	
+
+	<delete id="delete" parameterClass="java.lang.String">
+		delete from Test where id=#id:VARCHAR#
+  </delete>
+
+</sqlMap> 

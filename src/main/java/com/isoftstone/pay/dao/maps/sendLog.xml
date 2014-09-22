@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap >
+  <typeAlias type="com.isoftstone.pay.model.SendLog" alias="sendLog"/>
+  <resultMap id="sendLogParameter" class="sendLog" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="Send_url" property="sendUrl" jdbcType="TEXT" javaType="java.lang.String"/>
+    <result column="Send_time" property="sendTime" jdbcType="DATETIME" javaType="java.sql.Timestamp"/>
+    <result column="Send_channel" property="sendChannel" jdbcType="VARCHAR" />
+    <result column="Send_Type" property="sendType" jdbcType="VARCHAR" />
+    <result column="Send_error" property="sendError" jdbcType="TEXT" javaType="java.lang.String"/>
+    <result column="Created_time" property="createdTime" jdbcType="DATETIME" javaType="java.sql.Timestamp" />
+    <result column="Order_no" property="orderNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<select id="getAllSendLog" resultMap="sendLogParameter">
+   	 	SELECT id,Send_url,Send_time,Send_channel,Send_Type,Send_error,Created_time,Order_no FROM Send_log
+  	</select>
+  
+    <insert id="insertSendLog" parameterClass="sendLog">
+   	 	INSERT INTO Send_log(id,Send_url,Send_time,Send_channel,Send_Type,Send_error,Created_time,Order_no) 
+   	 	VALUES (#id#,#sendUrl#,#sendTime#,#sendChannel#,#sendType#,#sendError:VARCHAR#,#createdTime#,#orderNo#)
+	</insert>
+	
+	<delete id="deleteSendLog">
+		delete from Send_log where id=#id# 
+	</delete>
+</sqlMap>
